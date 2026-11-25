@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Company Dashboard | Smart Campus</title>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <style>
+        .resume-actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .resume-btn {
+            padding: 7px 10px;
+            border: none;
+            border-radius: 5px;
+            background: #263b80;
+            color: white;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .resume-btn:hover {
+            background: #1c2e68;
+        }
+
+        .status-select {
+            padding: 7px;
+            border: 1px solid #d5dbea;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+        }
+
+        .status-select:disabled,
+        .resume-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .empty-message {
+            color: #64748b;
+            padding: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="dashboard-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <span>🎓</span>
+            <h2>Smart Campus</h2>
+        </div>
+
+        <div class="sidebar-menu">
+
+            <p class="menu-heading">COMPANY MENU</p>
+
+            <a href="#overview" class="sidebar-link active">
+                🏠 Dashboard
+            </a>
+
+            <a href="#profile" class="sidebar-link">
+                🏢 Company Profile
+            </a>
+
+            <a href="#post-job" class="sidebar-link">
+                ➕ Post a Job
+            </a>
+
+            <a href="#jobs" class="sidebar-link">
+                💼 Manage Jobs
+            </a>
+
+            <a href="#applicants" class="sidebar-link">
+                👨‍🎓 Applicants
+            </a>
+
+        </div>
+
+    <button type="button" class="sidebar-logout logout-btn" onclick="logout()">
+    ↪ Logout
+</button>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <h1>Company Dashboard</h1>
+                <p>Manage your recruitment and discover talented students.</p>
+            </div>
+
+            <div class="dashboard-user">
+
+                <div class="user-avatar">C</div>
+
+                <div>
+                    <h4 id="companyName">Company</h4>
+                    <span>Company Account</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Overview -->
+        <section id="overview" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Dashboard Overview</h2>
+                <span>Track your recruitment activities</span>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">💼</div>
+                    <p>Total Jobs Posted</p>
+                    <h2 id="companyTotalJobs">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🎓</div>
+                    <p>Total Applicants</p>
+                    <h2 id="companyTotalApplicants">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <p>Pending Applications</p>
+                    <h2 id="companyPendingApplications">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <p>Selected Students</p>
+                    <h2 id="companySelectedStudents">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Company Profile -->
+        <section id="profile" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Company Profile</h2>
+                <span>Your organization information</span>
+            </div>
+
+            <div class="profile-card">
+
+                <div class="profile-avatar">C</div>
+
+                <div class="profile-details">
+
+                    <h3 id="companyProfileName">Company Name</h3>
+
+                    <p id="companyProfileEmail">company@example.com</p>
+
+                    <p>Industry: Information Technology</p>
+
+                    <p>Location: India</p>
+
+                    <p>Website: Not Provided</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Post Job -->
+        <section id="post-job" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Post a New Job</h2>
+                <span>Create a new placement opportunity</span>
+            </div>
+
+            <div class="profile-card job-form-card">
+
+                <form id="postJobForm" class="job-form">
+
+                    <div class="input-group">
+
+                        <label for="jobTitle">Job Title</label>
+
+                        <input
+                            type="text"
+                            id="jobTitle"
+                            placeholder="e.g. Frontend Developer"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="jobType">Job Type</label>
+
+                        <select id="jobType" required>
+
+                            <option value="">Select Job Type</option>
+                            <option value="Full Time">Full Time</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Part Time">Part Time</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="jobSalary">Salary / Stipend</label>
+
+                        <input
+                            type="text"
+                            id="jobSalary"
+                            placeholder="e.g. ₹3 - 5 LPA"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="jobSkills">Required Skills</label>
+
+                        <input
+                            type="text"
+                            id="jobSkills"
+                            placeholder="e.g. HTML, CSS, JavaScript"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="jobDescription">Job Description</label>
+
+                        <textarea
+                            id="jobDescription"
+                            rows="4"
+                            placeholder="Describe the job role and responsibilities"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button type="submit" class="login-btn">
+                        + Post Job
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- Manage Jobs -->
+        <section id="jobs" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Manage Jobs</h2>
+                <span>Your posted opportunities</span>
+            </div>
+
+            <div class="jobs-grid">
+
+                <p class="empty-message">
+                    Loading your jobs...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Applicants -->
+        <section id="applicants" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Student Applications</h2>
+                <span>Review applications and student resumes</span>
+            </div>
+
+            <div class="table-container">
+
+                <table class="application-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Email</th>
+                            <th>Job Role</th>
+                            <th>Applied Date</th>
+                            <th>Resume</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="companyApplicantsTableBody">
+
+                        <tr>
+                            <td colspan="6">
+                                Loading applications...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            © 2026 Smart Campus | Company Placement Portal
+        </footer>
+
+    </main>
+
+
+    <!-- Main JavaScript -->
+    <script src="./script.js"></script>
+
+</body>
+</html>

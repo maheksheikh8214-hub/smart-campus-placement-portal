@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | Smart Campus</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="dashboard-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <span>🎓</span>
+            <h2>Smart Campus</h2>
+        </div>
+
+        <div class="sidebar-menu">
+
+            <p class="menu-heading">STUDENT MENU</p>
+
+            <a href="#overview" class="sidebar-link active">
+                🏠 Overview
+            </a>
+
+            <a href="#profile" class="sidebar-link">
+                👤 My Profile
+            </a>
+
+            <a href="#jobs" class="sidebar-link">
+                💼 Available Jobs
+            </a>
+
+            <a href="#applications" class="sidebar-link">
+                📄 My Applications
+            </a>
+
+            <a href="#status" class="sidebar-link">
+                📊 Placement Status
+            </a>
+
+        </div>
+
+        <button type="button" class="sidebar-logout logout-btn" onclick="logout()">
+    ↪ Logout
+</button>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <h1>Student Dashboard</h1>
+                <p>Welcome back! Manage your placement journey here.</p>
+            </div>
+
+            <div class="dashboard-user">
+
+                <div class="user-avatar">S</div>
+
+                <div>
+                    <h4 id="studentName">Student</h4>
+                    <span>Student Account</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Overview -->
+        <section id="overview" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Dashboard Overview</h2>
+                <span>Track your placement activities</span>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">💼</div>
+                    <p>Available Jobs</p>
+                    <h2 id="availableJobsCount">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <p>Applied Jobs</p>
+                    <h2 id="totalApplications">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <p>Pending Applications</p>
+                    <h2 id="pendingApplications">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <p>Selected</p>
+                    <h2 id="selectedApplications">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Profile -->
+        <section id="profile" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>My Profile</h2>
+                <span>Your personal information</span>
+            </div>
+
+            <div class="profile-card">
+
+                <div class="profile-avatar">S</div>
+
+                <div class="profile-details">
+
+                    <h3 id="profileName">Student Name</h3>
+
+                    <p id="profileEmail">student@example.com</p>
+
+                    <p>Department: Computer Applications</p>
+
+                    <a href="student-profile.html" class="sidebar-link">
+                        Edit Profile →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Available Jobs -->
+        <section id="jobs" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Available Jobs</h2>
+                <span>Explore the latest placement opportunities</span>
+            </div>
+
+            <div class="jobs-grid">
+
+                <p>Loading available jobs...</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Applications -->
+        <section id="applications" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>My Applications</h2>
+                <span>Check the status of your job applications</span>
+            </div>
+
+            <div class="table-container">
+
+                <table class="application-table">
+
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>Applied Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="applicationTableBody">
+
+                        <tr>
+                            <td colspan="4">Loading applications...</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Placement Status -->
+        <section id="status" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Placement Status</h2>
+                <span>Keep moving towards your career goals</span>
+            </div>
+
+            <div class="placement-card">
+
+                <h3>Your Placement Journey</h3>
+
+                <p>
+                    Apply for suitable opportunities, improve your skills
+                    and track your application progress.
+                </p>
+
+                <div class="progress-track">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <span id="placementMessage">
+                    Your placement journey starts here!
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            © 2026 Smart Campus | Student Placement Portal
+        </footer>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="./script.js"></script>
+
+</body>
+</html>

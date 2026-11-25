@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Profile | Smart Campus</title>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <style>
+        .profile-form {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .profile-form .input-group {
+            margin-bottom: 20px;
+        }
+
+        .profile-form input,
+        .profile-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d5dbea;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .profile-form input:focus,
+        .profile-form textarea:focus {
+            border-color: #5145e5;
+        }
+
+        .profile-form input:disabled {
+            background: #f1f5f9;
+            cursor: not-allowed;
+        }
+
+        .resume-upload-box {
+            border: 2px dashed #cbd5e1;
+            padding: 22px;
+            border-radius: 10px;
+            text-align: center;
+            background: #f8fafc;
+        }
+
+        .resume-upload-box input {
+            border: none;
+            background: transparent;
+        }
+
+        .resume-info {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        #profileMessage {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #f0fdf4;
+        }
+
+        .profile-submit {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="dashboard-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <span>🎓</span>
+            <h2>Smart Campus</h2>
+        </div>
+
+        <div class="sidebar-menu">
+
+            <p class="menu-heading">STUDENT MENU</p>
+
+            <a href="student-dashboard.html" class="sidebar-link">
+                🏠 Dashboard
+            </a>
+
+            <a href="student-profile.html" class="sidebar-link active">
+                👤 My Profile
+            </a>
+
+            <a href="student-dashboard.html#jobs" class="sidebar-link">
+                💼 Explore Jobs
+            </a>
+
+            <a href="student-dashboard.html#applications" class="sidebar-link">
+                📄 My Applications
+            </a>
+
+        </div>
+
+        <button type="button" class="sidebar-logout logout-btn">
+            ↪ Logout
+        </button>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <h1>My Profile</h1>
+                <p>Manage your personal details and resume.</p>
+            </div>
+
+            <div class="dashboard-user">
+
+                <div class="user-avatar">S</div>
+
+                <div>
+                    <h4 id="studentName">Student</h4>
+                    <span>Student Account</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Profile Section -->
+        <section class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Personal Information</h2>
+                <span>Keep your profile updated</span>
+            </div>
+
+            <div class="profile-card">
+
+                <form id="profileForm" class="profile-form">
+
+                    <!-- Full Name -->
+                    <div class="input-group">
+
+                        <label for="profileName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profileName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="input-group">
+
+                        <label for="profileEmail">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="profileEmail"
+                            placeholder="Your registered email"
+                            disabled
+                        >
+
+                    </div>
+
+
+                    <!-- Phone -->
+                    <div class="input-group">
+
+                        <label for="profilePhone">
+                            Mobile Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="profilePhone"
+                            placeholder="Enter 10-digit mobile number"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Qualification -->
+                    <div class="input-group">
+
+                        <label for="qualification">
+                            Qualification
+                        </label>
+
+                        <input
+                            type="text"
+                            id="qualification"
+                            placeholder="e.g. BCA Final Year"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Skills -->
+                    <div class="input-group">
+
+                        <label for="skills">
+                            Technical Skills
+                        </label>
+
+                        <textarea
+                            id="skills"
+                            rows="4"
+                            placeholder="e.g. HTML, CSS, JavaScript, Java"
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- Resume -->
+                    <div class="input-group">
+
+                        <label for="resume">
+                            Upload Resume (PDF)
+                        </label>
+
+                        <div class="resume-upload-box">
+
+                            <p>📄 Select your resume in PDF format</p>
+
+                            <input
+                                type="file"
+                                id="resume"
+                                accept=".pdf,application/pdf"
+                            >
+
+                            <p class="resume-info">
+                                Maximum file size: 2 MB
+                            </p>
+
+                            <p id="resumeName" class="resume-info">
+                                No resume uploaded
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Save Button -->
+                    <button
+                        type="submit"
+                        class="login-btn profile-submit"
+                    >
+                        Save Profile
+                    </button>
+
+
+                    <!-- Message -->
+                    <p id="profileMessage" role="status"></p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            © 2026 Smart Campus | Student Placement Portal
+        </footer>
+
+    </main>
+
+
+    <!-- Main JavaScript -->
+    <script src="./script.js"></script>
+
+</body>
+</html>

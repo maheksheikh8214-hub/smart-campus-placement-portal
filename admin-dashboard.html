@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Smart Campus</title>
+    <link rel="stylesheet" href="./style.css">
+
+    <style>
+        .dashboard-section {
+            scroll-margin-top: 25px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading span {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .admin-welcome {
+            background: linear-gradient(120deg, #5145e5, #756af5);
+            color: white;
+            padding: 24px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .admin-welcome h2 {
+            margin-bottom: 8px;
+        }
+
+        .admin-welcome p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .placement-card {
+            padding: 24px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .placement-card h3 {
+            margin-bottom: 18px;
+        }
+
+        .placement-card p {
+            margin: 12px 0;
+            color: #475569;
+        }
+
+        .placement-card p span {
+            color: #263b80;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            height: 12px;
+            width: 100%;
+            background: #e8eaf3;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 18px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #5145e5;
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .application-table {
+            min-width: 650px;
+            width: 100%;
+        }
+
+        .admin-empty {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+
+        @media (max-width: 600px) {
+            .admin-welcome {
+                padding: 18px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard-page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <span>🎓</span>
+            <h2>Smart Campus</h2>
+        </div>
+
+        <div class="sidebar-menu">
+
+            <p class="menu-heading">ADMIN MENU</p>
+
+            <a href="#overview" class="sidebar-link active">
+                🏠 Dashboard
+            </a>
+
+            <a href="#students" class="sidebar-link">
+                👨‍🎓 Students
+            </a>
+
+            <a href="#companies" class="sidebar-link">
+                🏢 Companies
+            </a>
+
+            <a href="#jobs" class="sidebar-link">
+                💼 Manage Jobs
+            </a>
+
+            <a href="#applications" class="sidebar-link">
+                📄 Applications
+            </a>
+
+            <a href="#reports" class="sidebar-link">
+                📊 Reports
+            </a>
+
+        </div>
+
+       <button type="button" class="sidebar-logout logout-btn" onclick="logout()">
+    ↪ Logout
+</button>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div>
+                <h1>Admin Dashboard</h1>
+                <p>Manage your college placement activities.</p>
+            </div>
+
+            <div class="dashboard-user">
+
+                <div class="user-avatar">A</div>
+
+                <div>
+                    <h4>Administrator</h4>
+                    <span>Admin Account</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Overview -->
+        <section id="overview" class="dashboard-section">
+
+            <div class="admin-welcome">
+
+                <h2>Welcome to Smart Campus! 👋</h2>
+
+                <p>
+                    Monitor students, companies, job opportunities
+                    and placement applications from one place.
+                </p>
+
+            </div>
+
+            <div class="section-heading">
+                <h2>Dashboard Overview</h2>
+                <span>Placement activity summary</span>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🎓</div>
+                    <p>Total Students</p>
+                    <h2 id="totalStudents">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏢</div>
+                    <p>Registered Companies</p>
+                    <h2 id="totalCompanies">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💼</div>
+                    <p>Active Jobs</p>
+                    <h2 id="totalJobs">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <p>Total Applications</p>
+                    <h2 id="totalApplications">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Students -->
+        <section id="students" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Student Records</h2>
+                <span>Registered student information</span>
+            </div>
+
+            <div class="table-container">
+
+                <table class="application-table">
+
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="adminStudentsTable">
+
+                        <tr>
+                            <td colspan="5" class="admin-empty">
+                                No student records found.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Companies -->
+        <section id="companies" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Registered Companies</h2>
+                <span>Company information</span>
+            </div>
+
+            <div class="table-container">
+
+                <table class="application-table">
+
+                    <thead>
+                        <tr>
+                            <th>Company ID</th>
+                            <th>Company Name</th>
+                            <th>Email</th>
+                            <th>Industry</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="adminCompaniesTable">
+
+                        <tr>
+                            <td colspan="5" class="admin-empty">
+                                No company records found.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Jobs -->
+        <section id="jobs" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Manage Job Opportunities</h2>
+                <span>Recently posted jobs</span>
+            </div>
+
+            <div class="jobs-grid" id="adminJobsGrid">
+
+                <p class="admin-empty">No jobs available yet.</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Applications -->
+        <section id="applications" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Recent Applications</h2>
+                <span>Student placement applications</span>
+            </div>
+
+            <div class="table-container">
+
+                <table class="application-table">
+
+                    <thead>
+                        <tr>
+                            <th>Application ID</th>
+                            <th>Student Name</th>
+                            <th>Job Role</th>
+                            <th>Company</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="adminApplicationsTable">
+
+                        <tr>
+                            <td colspan="5" class="admin-empty">
+                                No applications found.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Reports -->
+        <section id="reports" class="dashboard-section">
+
+            <div class="section-heading">
+                <h2>Placement Reports</h2>
+                <span>Overall placement performance</span>
+            </div>
+
+            <div class="placement-card">
+
+                <h3>Placement Summary</h3>
+
+                <p>
+                    Total Students:
+                    <span id="reportTotalStudents">0</span>
+                </p>
+
+                <p>
+                    Students Placed:
+                    <span id="reportPlacedStudents">0</span>
+                </p>
+
+                <p>
+                    Placement Rate:
+                    <span id="reportPlacementRate">0%</span>
+                </p>
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-fill"
+                        id="reportProgress"
+                        style="width: 0%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            © 2026 Smart Campus | Admin Panel
+        </footer>
+
+    </main>
+
+    <script src="./script.js"></script>
+
+</body>
+</html>
