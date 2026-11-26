@@ -29,6 +29,7 @@ const dbConfig = {
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_NAME || "smart_campus",
+    port: Number(process.env.DB_PORT || 3306),
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -37,21 +38,14 @@ const dbConfig = {
 let pool;
 
 async function connectDatabase() {
-    const connection = await mysql.createConnection({
-        host: dbConfig.host,
-        user: dbConfig.user,
-        password: dbConfig.password
-    });
 
-    await connection.query(
-        `CREATE DATABASE IF NOT EXISTS \`${dbConfig.database}\`
-         CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`
-    );
-
-    await connection.end();
-
+    // Connect directly to Railway MySQL database
     pool = mysql.createPool(dbConfig);
 
+    // Check database connection
+    await pool.query("SELECT 1");
+
+    // Create users table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -64,6 +58,7 @@ async function connectDatabase() {
         )
     `);
 
+    // Create student profiles table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS student_profiles (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -76,6 +71,7 @@ async function connectDatabase() {
         )
     `);
 
+    // Create company profiles table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS company_profiles (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -86,6 +82,7 @@ async function connectDatabase() {
         )
     `);
 
+    // Create jobs table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS jobs (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -101,6 +98,7 @@ async function connectDatabase() {
         )
     `);
 
+    // Create applications table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS applications (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -114,6 +112,7 @@ async function connectDatabase() {
         )
     `);
 
+    // Create resumes table
     await pool.query(`
         CREATE TABLE IF NOT EXISTS resumes (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -127,16 +126,19 @@ async function connectDatabase() {
         )
     `);
 
+    // Create admin account if it does not exist
     const adminEmail = process.env.ADMIN_EMAIL;
     const adminPassword = process.env.ADMIN_PASSWORD;
 
     if (adminEmail && adminPassword) {
+
         const [existing] = await pool.execute(
             "SELECT id FROM users WHERE email = ?",
             [adminEmail.trim().toLowerCase()]
         );
 
         if (existing.length === 0) {
+
             const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
             await pool.execute(
@@ -331,6 +333,7 @@ app.post("/login", asyncHandler(async (req, res) => {
         user: publicUser(user)
     });
 }));
+
 // ============================================================
 // 7. JOB MANAGEMENT
 // ============================================================
@@ -513,6 +516,7 @@ app.get("/student/:id/applications", asyncHandler(async (req, res) => {
         applications
     });
 }));
+
 // ============================================================
 // 9. STUDENT PROFILE
 // ============================================================
@@ -667,8 +671,6 @@ app.get(
         const companyId = Number(req.params.companyId);
         const studentId = Number(req.params.studentId);
 
-        // Check whether this company has a job application
-        // from this student.
         const [applications] = await pool.execute(`
             SELECT a.id
             FROM applications a
@@ -776,6 +778,7 @@ app.patch("/applications/:id/status", asyncHandler(async (req, res) => {
         message: "Application status updated successfully."
     });
 }));
+
 // ============================================================
 // 14. ADMIN DASHBOARD STATISTICS
 // ============================================================
@@ -926,6 +929,7 @@ app.get("/admin/applications", asyncHandler(async (req, res) => {
         applications
     });
 }));
+
 // ============================================================
 // 19. 404 ROUTE
 // ============================================================
@@ -968,7 +972,7 @@ async function startServer() {
         app.listen(PORT, () => {
             console.log("------------------------------------");
             console.log("SMART CAMPUS SERVER STARTED");
-            console.log(`URL: http://localhost:${PORT}`);
+            console.log(`Server is running on port ${PORT}`);
             console.log("------------------------------------");
         });
 
